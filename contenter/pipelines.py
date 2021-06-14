@@ -7,7 +7,16 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
+from contenter.db_api import Database
+
 
 class ContenterPipeline:
     def process_item(self, item, spider):
+        return item
+
+
+class MongoPipeline:
+    def process_item(self, item, spider):
+        db = Database(spider)
+        db.insert_one(item, spider)
         return item
